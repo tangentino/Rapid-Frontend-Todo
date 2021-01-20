@@ -67,7 +67,7 @@ export default {
   name: 'todo',
   data() {
       return {
-        title: 'Hello!',
+        title: 'To-Do List',
       }
   },
 }
