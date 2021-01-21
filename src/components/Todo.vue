@@ -8,7 +8,7 @@
 
         <!-- This section should be hidden by default and shown when there are todos -->
         <section class="main" v-if="todos.length">
-            <input id="toggle-all" class="toggle-all" type="checkbox">
+            <input id="toggle-all" class="toggle-all" type="checkbox" @click="toggleAllComplete" :checked="allComplete">
             <label for="toggle-all">Mark all as complete</label>
             <ul class="todo-list">
                 <!-- These are here just to show the structure of the list items -->
@@ -94,6 +94,13 @@ export default {
     },
     clearCompleted() {
       this.todos = this.activeTodos;
+    },
+    toggleAllComplete() {
+      const bool = !this.allComplete
+      this.todos = this.todos.map(item => ({
+        text: item.text,
+        isDone: bool
+      }))
     }
   },
   computed: {
@@ -102,6 +109,10 @@ export default {
     },
     completedTodos() {
       return this.todos.filter(t => t.isDone);
+    },
+    allComplete() {
+      const todosLength = this.todos.length;
+      return todosLength > 0 && (todosLength === this.completedTodos.length);
     }
   },
   watch: {
