@@ -23,25 +23,7 @@
               </li>
             </ul>
         </section>
-        <!-- This footer should hidden by default and shown when there are todos -->
-        <footer class="footer" v-if="todos.length">
-            <!-- This should be `0 items left` by default -->
-            <span class="todo-count"><strong>{{ activeTodos.length }}</strong> item(s) left</span>
-            <!--
-            <ul class="filters">
-                <li>
-                    <a class="selected" href="#/">All</a>
-                </li>
-                <li>
-                    <a href="#/active">Active</a>
-                </li>
-                <li>
-                    <a href="#/completed">Completed</a>
-                </li>
-            </ul>
-            -->
-            <button class="clear-completed" @click="clearCompleted" v-show="completedTodos.length">Clear completed</button>
-        </footer>
+      <todo-footer v-if="todos.length" :activeTodoCount="activeTodos.length" :completedTodoCount="completedTodos.length" @clear-todos-action="clearCompleted"/>
     </section>
     <footer class="info">
         <p>Double-click to edit a todo</p>
@@ -55,10 +37,15 @@
 </template>
 
 <script>
+import TodoFooter from "./TodoFooter.vue";
+
 const LOCAL_STORAGE_KEY = 'todo-app-vue';
 
 export default {
   name: 'todo',
+  components: {
+    TodoFooter
+  },
   data() {
       return {
         title: 'To Do List',
